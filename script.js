@@ -1,5 +1,5 @@
 /**
- * Luxury Gold Wedding Invitation
+ * Nature Green Wedding Invitation
  * Korean Mobile 청첩장 - Script
  */
 
@@ -26,14 +26,6 @@
     const h12 = hours % 12 || 12;
     const minuteStr = minutes > 0 ? ` ${minutes}분` : '';
     return `${year}년 ${month}월 ${date}일 ${day}요일 ${period} ${h12}시${minuteStr}`;
-  }
-
-  function formatDateShort(dateStr) {
-    const d = new Date(`${dateStr}T00:00:00`);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const date = String(d.getDate()).padStart(2, '0');
-    return `${year}.${month}.${date}`;
   }
 
   function getWeddingDateTime() {
@@ -137,26 +129,162 @@
     const curtain = $('#curtain');
     const btn = $('#curtainBtn');
     const namesEl = $('#curtainNames');
-    const dateEl = $('#curtainDate');
 
     // If useCurtain is false, skip the curtain entirely
     if (CONFIG.useCurtain === false) {
       curtain.style.display = 'none';
+      initFallingLeaves();
       return;
     }
 
     namesEl.textContent = `${CONFIG.groom.name}  &  ${CONFIG.bride.name}`;
-    dateEl.textContent = formatDateShort(CONFIG.wedding.date);
 
     btn.addEventListener('click', () => {
       curtain.classList.add('is-open');
       document.body.classList.remove('no-scroll');
       setTimeout(() => {
         curtain.classList.add('is-hidden');
+        initFallingLeaves();
       }, 1400);
     });
 
     document.body.classList.add('no-scroll');
+  }
+
+  /* ═══════════════════════════════════════════
+     Falling Leaves Animation
+     ═══════════════════════════════════════════ */
+
+  function initFallingLeaves() {
+    const canvas = $('#leafCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const leaves = [];
+    const LEAF_COUNT = 20;
+
+    // Leaf color palette: green and golden tones
+    const leafColors = [
+      { fill: 'rgba(139, 158, 126, 0.6)', stroke: 'rgba(74, 94, 59, 0.3)' },   // sage green
+      { fill: 'rgba(74, 94, 59, 0.5)', stroke: 'rgba(58, 75, 46, 0.3)' },       // forest green
+      { fill: 'rgba(168, 184, 158, 0.5)', stroke: 'rgba(139, 158, 126, 0.3)' },  // light sage
+      { fill: 'rgba(180, 165, 120, 0.5)', stroke: 'rgba(139, 115, 85, 0.3)' },   // golden
+      { fill: 'rgba(160, 175, 130, 0.5)', stroke: 'rgba(100, 120, 70, 0.3)' },   // yellow-green
+    ];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Leaf {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(initial = false) {
+        this.x = Math.random() * width;
+        this.y = initial ? Math.random() * height * -1 : -30;
+        this.size = 10 + Math.random() * 14;
+        this.speedY = 0.4 + Math.random() * 0.8;
+        this.speedX = -0.2 + Math.random() * 0.4;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.025;
+        this.oscillateAmp = 25 + Math.random() * 35;
+        this.oscillateSpeed = 0.008 + Math.random() * 0.015;
+        this.oscillateOffset = Math.random() * Math.PI * 2;
+        this.opacity = 0.15 + Math.random() * 0.35;
+        this.t = 0;
+        this.colorSet = leafColors[Math.floor(Math.random() * leafColors.length)];
+        this.leafType = Math.floor(Math.random() * 3); // 3 leaf shape variants
+      }
+
+      update() {
+        this.t++;
+        this.y += this.speedY;
+        this.x += this.speedX + Math.sin(this.t * this.oscillateSpeed + this.oscillateOffset) * 0.4;
+        this.rotation += this.rotSpeed;
+        if (this.y > height + 30) this.reset();
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.opacity;
+
+        const s = this.size;
+
+        if (this.leafType === 0) {
+          // Oval leaf
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.5);
+          ctx.bezierCurveTo(s * 0.5, -s * 0.4, s * 0.5, s * 0.4, 0, s * 0.5);
+          ctx.bezierCurveTo(-s * 0.5, s * 0.4, -s * 0.5, -s * 0.4, 0, -s * 0.5);
+          ctx.fillStyle = this.colorSet.fill;
+          ctx.fill();
+          // Vein
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.45);
+          ctx.lineTo(0, s * 0.45);
+          ctx.strokeStyle = this.colorSet.stroke;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        } else if (this.leafType === 1) {
+          // Pointed leaf
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.6);
+          ctx.bezierCurveTo(s * 0.4, -s * 0.2, s * 0.35, s * 0.3, 0, s * 0.6);
+          ctx.bezierCurveTo(-s * 0.35, s * 0.3, -s * 0.4, -s * 0.2, 0, -s * 0.6);
+          ctx.fillStyle = this.colorSet.fill;
+          ctx.fill();
+          // Vein
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.5);
+          ctx.lineTo(0, s * 0.5);
+          ctx.strokeStyle = this.colorSet.stroke;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        } else {
+          // Round leaf
+          ctx.beginPath();
+          ctx.ellipse(0, 0, s * 0.35, s * 0.45, 0, 0, Math.PI * 2);
+          ctx.fillStyle = this.colorSet.fill;
+          ctx.fill();
+          // Vein
+          ctx.beginPath();
+          ctx.moveTo(0, -s * 0.4);
+          ctx.lineTo(0, s * 0.4);
+          ctx.moveTo(0, -s * 0.1);
+          ctx.lineTo(s * 0.2, -s * 0.25);
+          ctx.moveTo(0, 0.1);
+          ctx.lineTo(-s * 0.2, -s * 0.05);
+          ctx.strokeStyle = this.colorSet.stroke;
+          ctx.lineWidth = 0.4;
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < LEAF_COUNT; i++) {
+      leaves.push(new Leaf());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      leaves.forEach(l => {
+        l.update();
+        l.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   }
 
   /* ═══════════════════════════════════════════
@@ -230,12 +358,12 @@
     const parentsHTML = `
       <div class="parent-row">
         ${parentLine(g.father, g.mother, g.fatherDeceased, g.motherDeceased)}
-        <span class="parent-dot">&#9670;</span>
+        <span class="parent-dot">●</span>
         의 아들 <span class="child-name">${g.name}</span>
       </div>
       <div class="parent-row">
         ${parentLine(b.father, b.mother, b.fatherDeceased, b.motherDeceased)}
-        <span class="parent-dot">&#9670;</span>
+        <span class="parent-dot">●</span>
         의 딸 <span class="child-name">${b.name}</span>
       </div>
     `;

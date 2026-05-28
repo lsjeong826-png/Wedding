@@ -1,34 +1,39 @@
 /* ═══════════════════════════════════════════
-   Luxury Gold Wedding Invitation
+   Nature Green Wedding Invitation
    Korean Mobile 청첩장 - Styles
    ═══════════════════════════════════════════ */
 
 /* ─── CSS Variables ─── */
 :root {
-  --color-bg: #1a1a2e;
-  --color-bg-alt: #16213e;
-  --color-bg-card: rgba(255, 255, 255, 0.04);
-  --color-bg-card-solid: #1e1e36;
-  --color-gold: #d4a574;
-  --color-gold-light: #e8c9a0;
-  --color-gold-dark: #c9a96e;
-  --color-gold-muted: rgba(212, 165, 116, 0.3);
-  --color-text: #f0e6d3;
-  --color-text-light: rgba(240, 230, 211, 0.7);
-  --color-text-muted: rgba(240, 230, 211, 0.45);
-  --color-white: #ffffff;
-  --color-border: rgba(212, 165, 116, 0.2);
-  --color-border-strong: rgba(212, 165, 116, 0.4);
-  --color-overlay: rgba(26, 26, 46, 0.85);
+  --color-sage: #8B9E7E;
+  --color-sage-light: #a8b89e;
+  --color-sage-lighter: #c5d2bc;
+  --color-forest: #4A5E3B;
+  --color-forest-dark: #3a4b2e;
+  --color-cream: #F5F2E8;
+  --color-warm-white: #FAFAF5;
+  --color-brown: #8B7355;
+  --color-brown-light: #a89578;
+
+  --color-bg: var(--color-warm-white);
+  --color-bg-warm: var(--color-cream);
+  --color-bg-card: #ffffff;
+  --color-text: #3d3d32;
+  --color-text-light: #6b6b5e;
+  --color-text-muted: #9a9a8a;
+  --color-accent: var(--color-sage);
+  --color-accent-light: var(--color-sage-light);
+  --color-accent-dark: var(--color-forest);
+  --color-border: #ddd8cc;
+  --color-divider: #ccc7b8;
+  --color-overlay: rgba(58, 64, 50, 0.6);
   --color-kakao: #fee500;
   --color-naver: #03c75a;
-  --color-toast-bg: rgba(30, 30, 54, 0.95);
-
-  --gradient-gold: linear-gradient(135deg, #c9a96e 0%, #d4a574 30%, #e8c9a0 50%, #d4a574 70%, #c9a96e 100%);
-  --gradient-gold-subtle: linear-gradient(90deg, transparent, var(--color-gold-muted), transparent);
+  --color-white: #ffffff;
+  --color-toast-bg: rgba(74, 94, 59, 0.92);
 
   --font-serif: 'Noto Serif KR', 'Georgia', serif;
-  --font-display: 'Cormorant Garamond', 'Noto Serif KR', serif;
+  --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -68,7 +73,7 @@ html {
 body {
   font-family: var(--font-serif);
   color: var(--color-text);
-  background-color: #111122;
+  background-color: var(--color-bg);
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -118,56 +123,6 @@ a {
 }
 
 /* ═══════════════════════════════════════════
-   Gold Shimmer Animation
-   ═══════════════════════════════════════════ */
-@keyframes goldShimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes goldPulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1) rotate(180deg);
-  }
-}
-
-/* ─── Gold Ornament (diamond shape) ─── */
-.gold-ornament {
-  width: 10px;
-  height: 10px;
-  margin: 0 auto var(--spacing-md);
-  background: var(--gradient-gold);
-  transform: rotate(45deg);
-  opacity: 0.7;
-}
-
-/* ─── Gold Gradient Line Divider ─── */
-.section__gold-line {
-  width: 60px;
-  height: 1px;
-  margin: 0 auto var(--spacing-lg);
-  background: var(--gradient-gold-subtle);
-}
-
-/* ═══════════════════════════════════════════
    Curtain Opening Animation
    ═══════════════════════════════════════════ */
 .curtain {
@@ -179,15 +134,45 @@ a {
   justify-content: center;
 }
 
-.curtain__bg {
+.curtain__left,
+.curtain__right {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #0d0d1a 0%, #1a1a2e 50%, #0d0d1a 100%);
-  transition: opacity 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
 }
 
-.curtain.is-open .curtain__bg {
-  opacity: 0;
+.curtain__left {
+  left: 0;
+  background: linear-gradient(135deg, #3a4b2e 0%, #4A5E3B 40%, #5a6e4b 100%);
+}
+
+.curtain__right {
+  right: 0;
+  background: linear-gradient(225deg, #3a4b2e 0%, #4A5E3B 40%, #5a6e4b 100%);
+}
+
+/* Botanical texture on curtain panels */
+.curtain__left::after,
+.curtain__right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80px 120px at 30% 20%, rgba(139,158,126,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 90px at 70% 60%, rgba(139,158,126,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 100px 60px at 50% 85%, rgba(139,158,126,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.curtain.is-open .curtain__left {
+  transform: translateX(-100%);
+}
+
+.curtain.is-open .curtain__right {
+  transform: translateX(100%);
 }
 
 .curtain.is-open .curtain__content {
@@ -203,28 +188,23 @@ a {
   position: relative;
   z-index: 1;
   text-align: center;
-  color: var(--color-text);
+  color: var(--color-white);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  padding: var(--spacing-lg);
 }
 
-.curtain__gold-line {
-  width: 80px;
-  height: 1px;
-  margin: var(--spacing-md) auto;
-  background: var(--gradient-gold);
-  opacity: 0.5;
+.curtain__leaf-icon {
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
 }
 
 .curtain__subtitle {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
-  letter-spacing: 6px;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-gold);
-  opacity: 0.8;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.75;
 }
 
 .curtain__names {
@@ -232,56 +212,42 @@ a {
   font-size: 1.75rem;
   font-weight: 300;
   letter-spacing: 6px;
-  margin-bottom: var(--spacing-xs);
-  color: var(--color-text);
-}
-
-.curtain__date {
-  font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 300;
-  letter-spacing: 3px;
-  color: var(--color-gold-dark);
-  margin-bottom: var(--spacing-md);
-  opacity: 0.7;
+  margin-bottom: var(--spacing-lg);
 }
 
 .curtain__btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.875rem 2.5rem;
-  border: 1px solid var(--color-gold-muted);
-  color: var(--color-gold);
-  font-family: var(--font-serif);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--color-white);
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 300;
   letter-spacing: 3px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   transition: var(--transition);
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.curtain__btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.curtain__btn:hover::before,
-.curtain__btn:focus::before {
-  left: 100%;
+  border-radius: var(--radius-sm);
 }
 
 .curtain__btn:hover,
 .curtain__btn:focus {
-  border-color: var(--color-gold);
-  background: rgba(212, 165, 116, 0.08);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* ═══════════════════════════════════════════
+   Falling Leaves Canvas
+   ═══════════════════════════════════════════ */
+.leaf-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 
 /* ═══════════════════════════════════════════
@@ -293,10 +259,10 @@ a {
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: var(--color-toast-bg);
-  color: var(--color-gold-light);
+  color: var(--color-white);
   padding: 0.75rem 1.5rem;
   border-radius: 100px;
-  border: 1px solid var(--color-border);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   z-index: 10000;
@@ -318,7 +284,7 @@ a {
   position: fixed;
   inset: 0;
   z-index: 9000;
-  background: rgba(0, 0, 0, 0.97);
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,7 +302,7 @@ a {
   position: absolute;
   top: calc(1rem + var(--safe-top));
   right: calc(1rem + var(--safe-right));
-  color: var(--color-gold-light);
+  color: var(--color-white);
   font-size: 2rem;
   width: 44px;
   height: 44px;
@@ -356,7 +322,7 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-gold-light);
+  color: var(--color-white);
   font-size: 2.5rem;
   width: 48px;
   height: 48px;
@@ -404,8 +370,8 @@ a {
   bottom: calc(1.5rem + var(--safe-bottom));
   left: 50%;
   transform: translateX(-50%);
-  color: var(--color-gold-dark);
-  font-family: var(--font-display);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   letter-spacing: 2px;
 }
@@ -436,8 +402,33 @@ a {
   font-size: 1.25rem;
   font-weight: 300;
   letter-spacing: 4px;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-gold-light);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-forest);
+}
+
+/* ─── Botanical Ornaments ─── */
+.botanical-ornament {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── Leaf Dividers between sections ─── */
+.leaf-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  background: linear-gradient(180deg, var(--color-warm-white) 0%, var(--color-cream) 50%, var(--color-warm-white) 100%);
+}
+
+.leaf-divider svg {
+  width: 120px;
+  height: auto;
+}
+
+.leaf-divider--alt {
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-warm-white) 50%, var(--color-cream) 100%);
 }
 
 /* ═══════════════════════════════════════════
@@ -453,7 +444,7 @@ a {
   justify-content: flex-end;
   padding: 0;
   overflow: hidden;
-  background-color: #0d0d1a;
+  background-color: var(--color-forest-dark);
 }
 
 .hero__overlay {
@@ -461,12 +452,11 @@ a {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 26, 0.2) 0%,
-    transparent 20%,
-    transparent 40%,
-    rgba(13, 13, 26, 0.3) 60%,
-    rgba(26, 26, 46, 0.8) 85%,
-    rgba(26, 26, 46, 0.95) 100%
+    transparent 0%,
+    transparent 35%,
+    rgba(58, 75, 46, 0.2) 55%,
+    rgba(58, 75, 46, 0.55) 75%,
+    rgba(58, 75, 46, 0.85) 100%
   );
   z-index: 1;
 }
@@ -484,20 +474,19 @@ a {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: var(--color-text);
+  color: var(--color-white);
   padding: 0 var(--spacing-md) var(--spacing-lg);
   width: 100%;
 }
 
 .hero__label {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   letter-spacing: 6px;
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
-  color: var(--color-gold);
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 .hero__names {
@@ -505,25 +494,22 @@ a {
   font-size: 2rem;
   font-weight: 200;
   letter-spacing: 8px;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   line-height: 1.4;
-  color: var(--color-white);
 }
 
-.hero__gold-divider {
-  width: 50px;
-  height: 1px;
-  margin: 0 auto var(--spacing-md);
-  background: var(--gradient-gold);
-  opacity: 0.6;
+.hero__divider {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
 }
 
 .hero__date,
 .hero__venue {
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   letter-spacing: 2px;
-  color: var(--color-gold-light);
   opacity: 0.85;
   line-height: 1.6;
 }
@@ -538,14 +524,14 @@ a {
   z-index: 2;
   padding: var(--spacing-lg) var(--spacing-md) calc(var(--spacing-lg) + var(--safe-bottom));
   text-align: center;
-  color: var(--color-text);
+  color: var(--color-white);
 }
 
 .countdown__label {
+  font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 300;
   letter-spacing: 3px;
-  color: var(--color-gold-dark);
   opacity: 0.7;
   margin-bottom: var(--spacing-sm);
 }
@@ -565,30 +551,27 @@ a {
 }
 
 .countdown__number {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 2rem;
   font-weight: 300;
   line-height: 1;
   letter-spacing: 2px;
-  color: var(--color-gold-light);
 }
 
 .countdown__unit {
-  font-family: var(--font-display);
-  font-size: 0.5625rem;
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: var(--color-gold-dark);
-  opacity: 0.5;
-  margin-top: 0.375rem;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin-top: 0.25rem;
 }
 
 .countdown__sep {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 1.5rem;
   font-weight: 300;
-  color: var(--color-gold-muted);
+  opacity: 0.4;
   margin-top: -1rem;
 }
 
@@ -596,7 +579,10 @@ a {
    Greeting Section
    ═══════════════════════════════════════════ */
 .greeting {
-  background-color: var(--color-bg);
+  background:
+    radial-gradient(ellipse 300px 200px at 10% 20%, rgba(139,158,126,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 250px 180px at 90% 80%, rgba(139,158,126,0.06) 0%, transparent 70%),
+    var(--color-warm-white);
 }
 
 .greeting__text {
@@ -624,13 +610,13 @@ a {
 }
 
 .greeting__parents .parent-dot {
-  color: var(--color-gold);
-  font-size: 0.4rem;
+  color: var(--color-sage);
+  font-size: 0.5rem;
 }
 
 .greeting__parents .child-name {
   font-weight: 500;
-  color: var(--color-gold-light);
+  color: var(--color-forest);
 }
 
 .greeting__parents .deceased::before {
@@ -640,99 +626,12 @@ a {
 }
 
 /* ═══════════════════════════════════════════
-   Calendar Section
-   ═══════════════════════════════════════════ */
-.calendar-section {
-  background-color: var(--color-bg-alt);
-}
-
-.calendar {
-  max-width: 360px;
-  margin: 0 auto var(--spacing-lg);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-}
-
-.calendar__header {
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 400;
-  letter-spacing: 2px;
-  margin-bottom: var(--spacing-sm);
-  color: var(--color-gold-light);
-}
-
-.calendar__weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0;
-  margin-bottom: 0.25rem;
-}
-
-.calendar__weekday {
-  font-size: 0.6875rem;
-  font-weight: 400;
-  color: var(--color-text-muted);
-  text-align: center;
-  padding: 0.5rem 0;
-}
-
-.calendar__weekday:first-child {
-  color: rgba(210, 130, 130, 0.7);
-}
-
-.calendar__weekday:last-child {
-  color: rgba(130, 160, 210, 0.7);
-}
-
-.calendar__days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0;
-}
-
-.calendar__day {
-  text-align: center;
-  padding: 0.5rem 0;
-  font-size: 0.8125rem;
-  font-weight: 300;
-  color: var(--color-text-light);
-  position: relative;
-}
-
-.calendar__day:nth-child(7n+1) {
-  color: rgba(210, 130, 130, 0.6);
-}
-
-.calendar__day:nth-child(7n) {
-  color: rgba(130, 160, 210, 0.6);
-}
-
-.calendar__day.is-empty {
-  visibility: hidden;
-}
-
-.calendar__day.is-today {
-  font-weight: 700;
-  color: var(--color-bg);
-  background: var(--gradient-gold);
-  border-radius: 50%;
-}
-
-.calendar-actions {
-  display: flex;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* ═══════════════════════════════════════════
    Story Section
    ═══════════════════════════════════════════ */
 .story {
-  background-color: var(--color-bg);
+  background:
+    radial-gradient(ellipse 350px 250px at 85% 30%, rgba(139,158,126,0.06) 0%, transparent 70%),
+    var(--color-cream);
 }
 
 .story__text {
@@ -754,7 +653,7 @@ a {
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(74, 94, 59, 0.1);
 }
 
 .story__photo-item img {
@@ -772,7 +671,9 @@ a {
    Gallery Section
    ═══════════════════════════════════════════ */
 .gallery {
-  background-color: var(--color-bg-alt);
+  background:
+    radial-gradient(ellipse 200px 200px at 15% 50%, rgba(139,158,126,0.05) 0%, transparent 70%),
+    var(--color-warm-white);
 }
 
 .gallery__grid {
@@ -800,26 +701,13 @@ a {
   transform: scale(1.08);
 }
 
-/* Gold overlay on gallery hover */
-.gallery__item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(212, 165, 116, 0.15) 100%);
-  opacity: 0;
-  transition: opacity var(--transition);
-  pointer-events: none;
-}
-
-.gallery__item:hover::after {
-  opacity: 1;
-}
-
 /* ═══════════════════════════════════════════
    Location Section
    ═══════════════════════════════════════════ */
 .location {
-  background-color: var(--color-bg);
+  background:
+    radial-gradient(ellipse 300px 200px at 80% 20%, rgba(139,158,126,0.06) 0%, transparent 70%),
+    var(--color-cream);
 }
 
 .location__info {
@@ -831,10 +719,11 @@ a {
   font-weight: 500;
   margin-bottom: 0.25rem;
   letter-spacing: 1px;
-  color: var(--color-gold-light);
+  color: var(--color-forest);
 }
 
 .location__hall {
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 300;
   color: var(--color-text-light);
@@ -842,6 +731,7 @@ a {
 }
 
 .location__address {
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   color: var(--color-text-muted);
@@ -849,6 +739,7 @@ a {
 }
 
 .location__tel {
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   color: var(--color-text-muted);
@@ -863,7 +754,7 @@ a {
   margin-bottom: var(--spacing-lg);
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(74, 94, 59, 0.1);
 }
 
 .location__map-img {
@@ -876,16 +767,111 @@ a {
   display: flex;
   gap: var(--spacing-sm);
   justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ─── Calendar (inline in location) ─── */
+.calendar-inline {
+  margin-top: var(--spacing-lg);
+}
+
+.calendar {
+  max-width: 360px;
+  margin: 0 auto var(--spacing-lg);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 20px rgba(74, 94, 59, 0.06);
+  border: 1px solid rgba(139, 158, 126, 0.15);
+}
+
+.calendar__header {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-forest);
+}
+
+.calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  margin-bottom: 0.25rem;
+}
+
+.calendar__weekday {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.calendar__weekday:first-child {
+  color: #c97070;
+}
+
+.calendar__weekday:last-child {
+  color: #6a8caf;
+}
+
+.calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.calendar__day {
+  text-align: center;
+  padding: 0.5rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: var(--color-text-light);
+  position: relative;
+}
+
+.calendar__day:nth-child(7n+1) {
+  color: #c97070;
+}
+
+.calendar__day:nth-child(7n) {
+  color: #6a8caf;
+}
+
+.calendar__day.is-empty {
+  visibility: hidden;
+}
+
+.calendar__day.is-today {
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-sage);
+  border-radius: 50%;
+}
+
+.calendar-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* ═══════════════════════════════════════════
    Account Section (축의금)
    ═══════════════════════════════════════════ */
 .account {
-  background-color: var(--color-bg-alt);
+  background:
+    radial-gradient(ellipse 250px 200px at 20% 30%, rgba(139,158,126,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 200px 150px at 80% 70%, rgba(139,158,126,0.04) 0%, transparent 70%),
+    var(--color-warm-white);
 }
 
 .account__desc {
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 300;
   color: var(--color-text-light);
@@ -896,7 +882,7 @@ a {
 .accordion {
   max-width: 400px;
   margin: 0 auto var(--spacing-sm);
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(139, 158, 126, 0.25);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-bg-card);
@@ -908,15 +894,15 @@ a {
   justify-content: space-between;
   width: 100%;
   padding: 1rem 1.25rem;
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 400;
   letter-spacing: 1px;
   transition: background var(--transition);
-  color: var(--color-text);
 }
 
 .accordion__trigger:hover {
-  background: rgba(212, 165, 116, 0.05);
+  background: rgba(139, 158, 126, 0.06);
 }
 
 .accordion__trigger span:nth-child(2) {
@@ -925,18 +911,17 @@ a {
   margin-left: 0.5rem;
 }
 
-.accordion__icon-diamond {
-  width: 8px;
-  height: 8px;
-  background: var(--gradient-gold);
-  transform: rotate(45deg);
-  flex-shrink: 0;
+.accordion__icon {
+  color: var(--color-sage);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
 }
 
 .accordion__arrow {
   transition: transform var(--transition);
   flex-shrink: 0;
-  color: var(--color-gold);
+  color: var(--color-sage);
 }
 
 .accordion__trigger[aria-expanded="true"] .accordion__arrow {
@@ -970,6 +955,7 @@ a {
 }
 
 .account-item__role {
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 300;
   color: var(--color-text-muted);
@@ -977,15 +963,15 @@ a {
 }
 
 .account-item__detail {
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
-  color: var(--color-text-light);
+  color: var(--color-text);
   margin-top: 0.125rem;
 }
 
 .account-item__name {
   font-weight: 400;
-  color: var(--color-text);
 }
 
 .account-item__copy {
@@ -993,19 +979,20 @@ a {
   align-items: center;
   gap: 0.25rem;
   padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 300;
-  color: var(--color-gold);
-  border: 1px solid var(--color-border-strong);
+  color: var(--color-forest);
+  border: 1px solid var(--color-sage-light);
   border-radius: 100px;
   transition: var(--transition);
   white-space: nowrap;
 }
 
 .account-item__copy:hover {
-  background: var(--color-gold);
-  color: var(--color-bg);
-  border-color: var(--color-gold);
+  background: var(--color-sage);
+  color: var(--color-white);
+  border-color: var(--color-sage);
 }
 
 /* ═══════════════════════════════════════════
@@ -1017,7 +1004,7 @@ a {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 300;
   letter-spacing: 1px;
@@ -1027,28 +1014,28 @@ a {
   line-height: 1;
 }
 
-.btn--gold-outline {
-  border: 1px solid var(--color-border-strong);
-  color: var(--color-gold);
-  background: transparent;
+.btn--outline {
+  border: 1px solid rgba(139, 158, 126, 0.3);
+  color: var(--color-text-light);
+  background: var(--color-bg-card);
 }
 
-.btn--gold-outline:hover {
-  border-color: var(--color-gold);
-  background: rgba(212, 165, 116, 0.1);
-  color: var(--color-gold-light);
+.btn--outline:hover {
+  border-color: var(--color-sage);
+  color: var(--color-forest);
+  background: rgba(139, 158, 126, 0.06);
 }
 
-.btn--text-gold {
-  color: var(--color-gold);
+.btn--text {
+  color: var(--color-forest);
   font-size: 0.8125rem;
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
 }
 
-.btn--text-gold:hover {
-  color: var(--color-gold-light);
+.btn--text:hover {
+  color: var(--color-sage);
 }
 
 .btn--kakao {
@@ -1082,17 +1069,20 @@ a {
   padding: var(--spacing-lg) var(--spacing-md);
   padding-bottom: calc(var(--spacing-lg) + var(--safe-bottom));
   text-align: center;
-  background: var(--color-bg);
+  background:
+    linear-gradient(180deg, var(--color-warm-white) 0%, rgba(139,158,126,0.08) 100%);
+  border-top: 1px solid rgba(139, 158, 126, 0.15);
 }
 
-.footer__gold-line {
-  width: 40px;
-  height: 1px;
-  margin: 0 auto var(--spacing-md);
-  background: var(--gradient-gold-subtle);
+.footer__leaf {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  justify-content: center;
+  opacity: 0.6;
 }
 
 .footer__text {
+  font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 300;
   color: var(--color-text-muted);
@@ -1115,7 +1105,7 @@ a {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-gold-dark);
+  background: var(--color-sage-light);
   animation: loadingPulse 1.2s ease-in-out infinite;
 }
 
@@ -1169,28 +1159,6 @@ a {
 }
 
 /* ═══════════════════════════════════════════
-   Gold Sparkle/Shimmer on Section Borders
-   ═══════════════════════════════════════════ */
-.section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: var(--gradient-gold-subtle);
-}
-
-.section:first-child::before {
-  display: none;
-}
-
-/* Shimmer accent on gold ornaments */
-.gold-ornament {
-  animation: goldPulse 3s ease-in-out infinite;
-}
-
-/* ═══════════════════════════════════════════
    Responsive - Tablet (768px+)
    ═══════════════════════════════════════════ */
 @media (min-width: 768px) {
@@ -1234,6 +1202,10 @@ a {
   .section__title {
     font-size: 1.375rem;
   }
+
+  .leaf-divider svg {
+    width: 160px;
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1243,7 +1215,7 @@ a {
   .main-content {
     max-width: 480px;
     margin: 0 auto;
-    box-shadow: 0 0 80px rgba(212, 165, 116, 0.06);
+    box-shadow: 0 0 60px rgba(74, 94, 59, 0.08);
     min-height: 100vh;
   }
 
@@ -1258,6 +1230,10 @@ a {
   .photo-modal__container {
     padding: 4rem;
   }
+
+  .leaf-divider svg {
+    width: 180px;
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1265,23 +1241,20 @@ a {
    ═══════════════════════════════════════════ */
 @media print {
   .curtain,
+  .leaf-canvas,
   .photo-modal,
   .toast,
   .countdown,
   .calendar-actions,
   .location__links,
   .location__copy,
-  .account-item__copy {
+  .account-item__copy,
+  .leaf-divider {
     display: none !important;
   }
 
   .animate-item {
     opacity: 1 !important;
     transform: none !important;
-  }
-
-  body {
-    background: #fff;
-    color: #333;
   }
 }

@@ -1,5 +1,5 @@
 /**
- * Luxury Gold Wedding Invitation Configuration
+ * Nature Green Wedding Invitation Configuration
  *
  * 이 파일에서 청첩장의 모든 정보를 수정할 수 있습니다.
  * 이미지는 설정이 필요 없습니다. 아래 폴더에 순번 파일명으로 넣으면 자동 감지됩니다.
@@ -18,33 +18,33 @@ const CONFIG = {
 
   // ── 메인 (히어로) ──
   groom: {
-    name: "신랑",
+    name: "한정호",
     nameEn: "Groom",
-    father: "아버지",
-    mother: "어머니",
+    father: "한현식",
+    mother: "유정옥",
     fatherDeceased: false,
     motherDeceased: false
   },
 
   bride: {
-    name: "신부",
+    name: "정이슬",
     nameEn: "Bride",
-    father: "아버지",
-    mother: "어머니",
+    father: "정도용",
+    mother: "최옥희",
     fatherDeceased: false,
     motherDeceased: false
   },
 
   wedding: {
-    date: "2026-05-09",
-    time: "13:00",
-    venue: "예식장 이름",
-    hall: "그랜드홀 5층",
-    address: "서울특별시 강남구 테헤란로 123",
-    tel: "02-1234-5678",
+    date: "2026-07-26",
+    time: "11:30",
+    venue: "그랜드 모먼트",
+    hall: "베일홀 B2층",
+    address: "부산 남구 대연동 황령대로 401-9",
+    tel: "051-922-2200",
     mapLinks: {
-      kakao: "https://map.kakao.com/",
-      naver: "https://map.naver.com/"
+      kakao: "https://place.map.kakao.com/1277548361",
+      naver: "https://naver.me/GoD7OvE4"
     }
   },
 
@@ -61,25 +61,21 @@ const CONFIG = {
   },
 
   // ── 오시는 길 ──
-  // (mapLinks는 wedding 객체 내에 포함)
+  // (mapLinks와 캘린더는 location 섹션 내에 포함)
 
   // ── 마음 전하실 곳 ──
   accounts: {
     groom: [
-      { role: "신랑", name: "홍길동", bank: "국민은행", number: "000-000-000000" },
-      { role: "아버지", name: "홍판서", bank: "신한은행", number: "000-000-000000" },
-      { role: "어머니", name: "김부인", bank: "우리은행", number: "000-000-000000" }
+      { role: "한정호", name: "한정호", bank: "국민은행", number: "1111-01-04-199511" },
     ],
     bride: [
-      { role: "신부", name: "김영희", bank: "하나은행", number: "000-000-000000" },
-      { role: "아버지", name: "김사장", bank: "기업은행", number: "000-000-000000" },
-      { role: "어머니", name: "이부인", bank: "농협은행", number: "000-000-000000" }
+      { role: "정이슬", name: "정이슬", bank: "국민은행", number: "909601-01-573030" },
     ]
   },
 
   // ── 링크 공유 시 나타나는 문구 ──
   meta: {
-    title: "신랑 ♥ 신부 결혼합니다",
-    description: "2026년 5월 9일, 소중한 분들을 초대합니다."
+    title: "한정호 ♥ 정이슬 결혼합니다",
+    description: "2026년 7월 26일, 소중한 분들을 초대합니다."
   }
 };
